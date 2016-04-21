@@ -41,8 +41,62 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\CapabilityType.cs" />
+    <Compile Include="Api\CapabilityTypeMode.cs" />
+    <Compile Include="Api\CapabilityTypeName.cs" />
+    <Compile Include="Api\ConnectionCredentialsType.cs" />
+    <Compile Include="Api\ConnectionListType.cs" />
+    <Compile Include="Api\ConnectionType.cs" />
+    <Compile Include="Api\DataSourceListType.cs" />
+    <Compile Include="Api\DataSourceType.cs" />
+    <Compile Include="Api\DomainDirectiveType.cs" />
+    <Compile Include="Api\ErrorType.cs" />
+    <Compile Include="Api\FavoriteListType.cs" />
+    <Compile Include="Api\FavoriteType.cs" />
+    <Compile Include="Api\FileUploadType.cs" />
+    <Compile Include="Api\GranteeCapabilitiesType.cs" />
+    <Compile Include="Api\GroupListType.cs" />
+    <Compile Include="Api\GroupType.cs" />
+    <Compile Include="Api\ImportDirectiveType.cs" />
+    <Compile Include="Api\ImportSourceType.cs" />
+    <Compile Include="Api\JobType.cs" />
+    <Compile Include="Api\JobTypeMode.cs" />
+    <Compile Include="Api\JobTypeType.cs" />
+    <Compile Include="Api\PaginationType.cs" />
+    <Compile Include="Api\ParentType.cs" />
+    <Compile Include="Api\ParentTypeType.cs" />
+    <Compile Include="Api\PermissionsType.cs" />
+    <Compile Include="Api\ProjectListType.cs" />
+    <Compile Include="Api\ProjectType.cs" />
+    <Compile Include="Api\ProjectTypeContentPermissions.cs" />
+    <Compile Include="Api\SiteListType.cs" />
+    <Compile Include="Api\SiteRoleType.cs" />
+    <Compile Include="Api\SiteType.cs" />
+    <Compile Include="Api\SiteTypeAdminMode.cs" />
+    <Compile Include="Api\SiteTypeState.cs" />
+    <Compile Include="Api\SiteTypeUsage.cs" />
+    <Compile Include="Api\StatusNoteListType.cs" />
+    <Compile Include="Api\StatusNoteType.cs" />
+    <Compile Include="Api\StatusNoteTypeType.cs" />
+    <Compile Include="Api\TableauCredentialsType.cs" />
+    <Compile Include="Api\TagListType.cs" />
+    <Compile Include="Api\TagType.cs" />
+    <Compile Include="Api\TsRequest.cs" />
+    <Compile Include="Api\TsResponse.cs" />
+    <Compile Include="Api\UserListType.cs" />
+    <Compile Include="Api\UserType.cs" />
+    <Compile Include="Api\ViewListType.cs" />
+    <Compile Include="Api\ViewType.cs" />
+    <Compile Include="Api\ViewTypeUsage.cs" />
+    <Compile Include="Api\WorkbookListType.cs" />
+    <Compile Include="Api\WorkbookType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestClient\ITableauApi.cs" />
+    <Compile Include="RestClient\RestApiClient.cs" />
+    <Compile Include="RestClient\TableauApi.cs" />
+    <Compile Include="RestClient\XmlExtensions.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
