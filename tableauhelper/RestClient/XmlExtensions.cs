@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace TableauHelper.RestClient
 {
-    public static class XmlExtensions
+    internal static class XmlExtensions
     {
         public static string XmlSerializeToString(this object objectInstance)
         {
