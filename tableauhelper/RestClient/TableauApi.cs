@@ -10,29 +10,37 @@ namespace TableauHelper.RestClient
     {
         private readonly RestApiClient _client;
         private readonly ConnectionType connType;
-        private string site;
-        public TableauApi(ConnectionType options,string site,string serverVersion="9.2")
+
+        public TableauApi(ConnectionType options, string site):this(options,site, "9.2")
         {
-            site = site;
-            _client = new RestApiClient(options.ServerAddress,options.UserName,options.Password,site,"9.2");
-            OnError = (e) =>
+
+        }
+        public TableauApi(ConnectionType options,string site,string serverVersion)
+        {
+            _client = new RestApiClient(options.ServerAddress,options.UserName,options.Password,site,serverVersion);
+            OnError = DefaultOnError;
+        }
+
+        private void DefaultOnError(ErrorType e)
+        {
+
+            throw new Exception(e.Summary)
             {
-                throw new Exception(e.Summary)
-                {
-                    Data =
+                Data =
                     {
                         {"Code", e.Code},
                         {"Summary", e.Summary},
                         {"Detail", e.Detail}
                     }
-                };
             };
         }
-
-
-        private async Task<T> GetApi<T>(string api) where T:class 
+        private async Task<T> GetApi<T>(string api) where T : class
         {
-            var response = await _client.GetApi(api);
+            return await GetApi<T>(api, false);
+        }
+        private async Task<T> GetApi<T>(string api,bool? login) where T:class 
+        {
+            var response = await _client.GetApi(api,login);
             foreach (object item in response.Items)
             {
 
@@ -74,22 +82,25 @@ namespace TableauHelper.RestClient
             return response != null ? response.User : null;
         }
 
-        public async Task<SiteType> GetSite()
+        #region Query_Site
+        public async Task<SiteType> Query_Site()
         {
-            return await GetSite(null, null);
+            return await Query_Site(null, null);
         }
 
-        public async Task<SiteType> GetSite(string siteId)
+        public async Task<SiteType> Query_Site(string siteId)
         {
-            return await GetSite(siteId, null);
+            return await Query_Site(siteId, null);
         }
-        public async Task<SiteType> GetSite(string siteId, string key)
+        public async Task<SiteType> Query_Site(string siteId, string key)
         {
-            string url = siteId;
+            
             if (string.IsNullOrEmpty(siteId))
             {
                 siteId = _client.SiteId;
+                key = string.Empty;
             }
+            string url = siteId;
             key = key ?? "";
             switch (key.ToLower())
             {
@@ -102,5 +113,36 @@ namespace TableauHelper.RestClient
             }
             return await GetApi<SiteType>(url);
         }
+        #endregion
+
+        #region Query_Sites
+        public async Task<SiteListType> Query_Sites()
+        {
+            return await Query_Sites(null, null);
+        }
+        public async Task<SiteListType> Query_Sites(int? pageSize, int? pageNumber)
+        {
+            var url = "sites/?";
+            url += pageSize.HasValue ? "pageSize=" + pageSize.Value.ToString() : string.Empty;
+            url += pageNumber.HasValue ? "pageNumber=" + pageNumber.Value.ToString() : string.Empty;
+            return await GetApi<SiteListType>(url, true);
+        }
+
+        #endregion
+
+        #region Query_Projects
+        public async Task<ProjectListType> Query_Projects()
+        {
+            return await Query_Projects(null, null);
+        }
+
+        public async Task<ProjectListType> Query_Projects(int? pageSize, int? pageNumber)
+        {
+            var url = "projects/?";
+            url += pageSize.HasValue ? "pageSize=" + pageSize.Value.ToString() : string.Empty;
+            url += pageNumber.HasValue ? "pageNumber=" + pageNumber.Value.ToString() : string.Empty;
+            return await GetApi<ProjectListType>(url);
+        }
+        #endregion
     }
 }

@@ -115,9 +115,9 @@ namespace TableauHelper.RestClient
 
         #region Generic Api
 
-        public async Task<TsResponse> GetApi(string url)
+        public async Task<TsResponse> GetApi(string url,bool? login)
         {
-            var apiUrl = BuildApiUrl(url);
+            var apiUrl = BuildApiUrl(url, login);
             var resultContent = await GetApiAsync(apiUrl);
             return resultContent.XmlDeserializeFromString<TsResponse>();
         }
@@ -134,9 +134,13 @@ namespace TableauHelper.RestClient
 
         #region Helper methods
 
-        private string BuildApiUrl(string callingUrl, bool login = false)
+        private string BuildApiUrl(string callingUrl)
         {
-            if (login)
+            return BuildApiUrl(callingUrl, false);
+        }
+        private string BuildApiUrl(string callingUrl, bool? login)
+        {
+            if (login??false)
             {
                 return Server + "/api/" + ApiVersion + "/" + callingUrl;
             }
