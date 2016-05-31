@@ -21,3 +21,5 @@ api.GetUsers();
 api.Query_Sites();
 
 ***All calls are async***
+
+*Disclaimer: This program is free software. It comes without any warranty, to the extent permitted by applicable law. You can redistribute it and/or modify it under the terms Do Anything You Want*
